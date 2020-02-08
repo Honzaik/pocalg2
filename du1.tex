@@ -1,0 +1,82 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{indentfirst} %indentace prvního odstavce
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage[czech]{babel}
+\usepackage{mathdots}
+\usepackage{slashbox}
+
+\begin{document}
+
+\section{}
+Označme zadaný polynom písmenem $f = 2 x^5 - x^4 + 13 x^3 - 5 x^2 - 8 x - 1$. Derivace polynomu f má tvar $f' = 10x^4-4x^3+39x^2-10x-8$. Výpočetem NSD$(f,f')$ v okruhu $\mathbb{Z}[x]$ zjistíme, že NSD vyjde 1, takže je $f$ bezčtvercový.
+
+Nejmenší prvočíslo $p$, které můžeme použít je $5$, protože $2 | lc(f)$ a $f \mod 3$ není bezčtvercový. Dále potřebujeme najít vhodnou mocninu $k \in \mathbb{N}$, aby $5^k > 2|lc(f)|LM(f) = 4LM(f)$. $LM(f) = 2^5 \sqrt{2^2+(-1)^2+13^2+(-5)^2+(-8)^2+(-1)^2} \implies 520 > LM(f) > 519 \implies k=5$. 
+
+Nejdříve tedy spočteme ireduciblní rozklad $f$ v $\mathbb{Z}_5[x]$ pomocí Berlekampova algoritmu. K tomu ale potřebujeme, aby $f$ byl monický. Přenásobíme tedy $f$ inverzním prvkem k $2$ v $\mathbb{Z}_5$, tedy $3$. Budeme počítat s polynomem $g \coloneqq 3f$. Pokud dostaneme ireducibilní rozklad polynomu $g$ bude to i ireducibilní rozklad $f$, akorát k jednomu faktoru přidáme danou konstantu $2$. Matice $Q$, ve které jsou sloupce souřadnice polynomů $x^0 \mod g, x^5 \mod g, x^{10} \mod g, x^{15} \mod g, x^{20} \mod g \in \mathbb[Z]_5[x]$ v bázi $1,x,x^2,x^3,x^4$, vypadá takto:
+\[
+Q = \begin{pmatrix}
+1 & 3 & 1 & 4 & 0 \\
+0 & 4 & 2 & 4 & 3 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 4 & 4 & 1 \\
+0 & 3 & 3 & 4 & 2
+\end{pmatrix}
+\]
+
+Báze jádra matice $Q-E$ je například:
+\[
+h_1 = \begin{pmatrix}
+1 \\
+0 \\
+0 \\
+0 \\
+0 
+\end{pmatrix},
+h_2 = \begin{pmatrix}
+0 \\
+1 \\
+2 \\
+0 \\
+1 
+\end{pmatrix}, 
+h_3 = \begin{pmatrix}
+0 \\
+2 \\
+0 \\
+1 \\
+0 
+\end{pmatrix}
+\]
+
+Víme tedy, že polynom $f$ má právě 3 ireducibilní faktory v okruhu $\mathbb{Z}_5[x]$. Nyní můžeme začít provádět while cyklus v Berklekampově algoritmu
+\begin{align*}
+& F \coloneqq \{g\}, i \coloneqq 2: \\
+& \text{NSD}(g, x^4+2x^2+x-0) = x^3+2x+1\\
+& \text{NSD}(g, x^4+2x^2+x-1) = x+3\\
+& \text{NSD}(g, x^4+2x^2+x-2) = 1\\
+& \text{NSD}(g, x^4+2x^2+x-3) = 1\\
+& \text{NSD}(g, x^4+2x^2+x-4) = x+4\\\\
+& F \coloneqq \{x^3+2x+1, x+3, x+4\} \implies |F|=3=\text{\uv{počet ireducibilních faktorů}}
+\end{align*}
+
+Algoritmus tedy skončil s iredicibilními faktory $x^3+2x+1, x+3, x+4$. Jeden z nich potřebujeme ještě vynásobit $2$, zvolíme ten první. Máme tedy ireducibilní rozklad $f=(2x^3+4x+2)(x+3)(x+4)$ v $\mathbb{Z}_5[x]$. Můžeme tedy provést Henselovo zdvihání pro $k=5$.
+\begin{align*}
+&\tilde{g_1} = (x+3)(x+4)=x^2+2x+2\\
+&\tilde{g_2} = (2x^3+4x+2)(x+3)=2x^4+x^3+4x^2+4x+1\\
+&\tilde{g_3} = (2x^3+4x+2)(x+4)=2x^4+3x^3+4x^2+3x+3\\
+&g_1 = 2x^3+4x+2\\
+&g_2 = x+3\\
+&g_3 = x+4\\
+&d \coloneqq \frac{f-(2x^3+4x+2)(x+3)(x+4)}{5} \mod 5^2 = 2x^4+2x^3+3x^2+x\\
+k=1
+\end{align*}
+\end{document}
