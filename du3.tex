@@ -1,0 +1,85 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{indentfirst} %indentace prvního odstavce
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage[czech]{babel}
+\usepackage{mathdots}
+\usepackage{slashbox}
+
+\begin{document}
+
+\section{}
+Provedeme GS ortogonalizaci na vektorech $b_1, b_2, b_3$. Dostaneme $b_1^* = (0, 3, 4), b_2^* = (-1, \frac{12}{25}, \frac{-9}{25}), b_3^* = (\frac{78}{17}, \frac{104}{17}, \frac{-78}{17})$ a hodnoty $\mu_{2,1} = \frac{21}{25}, \mu_{3,1} = \frac{-16}{25}, \mu_{3,2} = \frac{-7}{17}$. Nyní můžeme přejít k druhému kroku LLL:
+\begin{align*}
+&i=2, j=1:\\
+&x \coloneqq 1\\
+&b_2 \coloneqq b_2-1b_1=\begin{pmatrix}
+-1\\
+0\\
+-1
+\end{pmatrix}\\
+&\mu_{2,1} \coloneqq \mu_{2,1}-1 = \frac{-4}{25}\\\\
+&i=3, j=2:\\
+&x \coloneqq 0 \text{ (tedy zbytek tohoto kroku můžeme přeskočit)}\\\\
+&i=3, j=1:\\
+&x \coloneqq -1\\
+&b_3 \coloneqq b_3 - (-1)b_1 = \begin{pmatrix}
+5\\
+7\\
+-3
+\end{pmatrix}\\
+&\mu_{3,1} = \mu{3,1} - (-1) = \frac{9}{25}
+\end{align*}
+
+Nyní můžeme přejít ke \uv{kontrolnímu} kroku LLL. Zjistíme, ale že musíme prohodit vektory $b_1$ a $b_2$, protože $\| b_2^* \|^2 < (\frac{3}{4} - \mu_{2,1}^2)\| b_1^* \|^2 \iff \frac{34}{25} < (\frac{3}{4}-(\frac{-4}{25})^2)25$. 
+
+Nově máme tedy prohozené vektory $b_1 = (-1, 0, -1)^T, b_2 = (0, 3, 4)^T, b_3 = (5, 7, -3)^T$. Spočítáme opět GS ortogonalizaci: $b_1^* = (-1, 0, -1)^T, b_2^* = (-2, 3, 2)^T, b_3^* = (\frac{78}{17}, \frac{104}{17}, \frac{-78}{17})^T$, $\mu_{2,1} = -2, \mu_{3,1} = -1, \mu_{3,2} = \frac{5}{17}$. Druhý krok:
+\begin{align*}
+&i=2, j=1:\\
+&x \coloneqq -2\\
+&b_2 \coloneqq  b_2 - (-2)b_1 = \begin{pmatrix}
+-2\\
+3\\
+2
+\end{pmatrix}\\
+&\mu_{2,1} \coloneqq -2 - (-2) = 0\\\\
+&i=3, j=2:\\
+&x \coloneqq 0\\\\
+&i=3, j=1:\\
+&x \coloneqq -1\\
+&b_3 \coloneqq b_3 - (-1)b_1 = \begin{pmatrix}
+4\\
+7\\
+-4
+\end{pmatrix}
+&\mu_{3,1} = \mu_{3,1} - (-1) = 0
+\end{align*}
+
+Kontrolou tentokrát projdou všechny vektory. Výstupem LLL jsou tedy vektory:
+\[
+b_1 = \begin{pmatrix}
+-1\\
+0\\
+-1
+\end{pmatrix},
+b_2 = \begin{pmatrix}
+-2\\
+3\\
+2
+\end{pmatrix}
+b_3 = \begin{pmatrix}
+4\\
+7\\
+-4
+\end{pmatrix}
+\]
+\end{document}
+
