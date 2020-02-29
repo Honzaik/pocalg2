@@ -1,0 +1,54 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{indentfirst} %indentace prvního odstavce
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage[czech]{babel}
+\usepackage{mathdots}
+\usepackage{slashbox}
+
+\begin{document}
+Cvičení 8:\\
+
+Definujeme si souřadnicový systém tak, aby body $A, B, C$ měly tyto souřadnice $A = (0,0), B = (2S_x, 0), C = (C_x, C_y)$. První souřadnici nazýváme $x$ souřadnici a druhou jako $y$. 
+
+Bod $S = (S_x,S_y)$ je střed opsané kružnice. Z definice je $S$ stejně vzdálený od bodu $A$ jako od bodu $B$, tudíž můžeme souřadnice bodu $B$ definovat pomocí hodnoty $S_x$. Budeme predpokládat, že $S_x \neq 0$, aby nenastalo $A=B$.
+
+Bod $C$ už nelze více zjednodušit, proto má $2$ obecné souřadnice.
+
+Body $P, L, M$ jsou také obecné a proto $P = (P_x, P_y), L = (L_x, L_y), M = (M_x, M_y)$. Ohledně bodu $K$ můžeme říci, že jeho druhá souřadnice je $0$ (protože leží na přímce mezi $A,B$), proto $K = (K_x, 0)$.
+
+Zadání nám dává následující podmínky, které můžeme zapsat pomocí rovnic s výše uvedenými proměnými a pomocnými $z_i$:
+\begin{align}
+&S_x \neq 0 \iff S_x z_1 - 1 = 0\\
+&\Vert \overrightarrow{PS} \Vert = \Vert \overrightarrow{AS} \Vert \iff P_x^2 - 2(P_xS_x + P_yS_y) + P_y^2 = 0\\
+&\Vert \overrightarrow{AS} \Vert = \Vert \overrightarrow{CS} \Vert \iff C_x^2 - 2(C_xS_x + C_yS_y) + C_y^2 = 0\\
+& C_x \neq 0 \land C_y \neq 0 \iff (C_x^2 +C_y^2)z_2 - 1 = 0\\ 
+&\overrightarrow{PK} \perp \overrightarrow{AB} \iff 
+\begin{pmatrix}
+P_x - K_x \\
+P_y
+\end{pmatrix} \cdot  
+\begin{pmatrix}
+-2S_x \\
+0
+\end{pmatrix} = 0 \stackrel{S_x \neq 0}{\iff} K_x - P_x = 0\\
+&\overrightarrow{PL} \perp \overrightarrow{BC} \iff 2P_xS_x - P_xC_x - 2L_xS_x + L_xC_x - C_yP_y + C_yL_y = 0\\
+&\overrightarrow{PM} \perp \overrightarrow{AC} \iff C_xP_x - C_xM_x + C_yP_y - C_yM_y = 0\\
+&P_y \neq 0 (\implies P \neq A \land P \neq B) \iff P_y z_3 - 1 = 0\\
+&P \neq C \iff ((P_x - C_x)^2 + (P_y - C_y)^2)z_4 - 1 = 0
+\end{align}
+
+Máme 9 rovnic v 16 proměnných popisující předpoklady. Nyní potřebujeme ještě rovnici popisující, že $K,L,M$ jsou na stejné přímce. Pro to stačí například, že $M$ leží na přímce $\overrightarrow{LK}$. Rovnici přímky $\overrightarrow{LK}$ má tvar $L_y x + (K_x - L_x)y - L_yK_x = 0$. Chceme, aby $M$ splňoval tuto rovnici. Po dosazení dostaneme rovnici 
+\[L_yM_x + K_xM_y - L_xM_y - L_yK_x = 0\]
+
+Označme polynomy z pravých stranr rovnic výše symboly $f_1, \dots, f_9$ a poslední polynom \uv{přímky} písmenem $g$. Z přednášky víme, že pro důkaz potřebujeme, aby $g \in I(V(f_1, \dots, f_9)) \iff 1 \in (f_1, \dots, f_9, gt-1)$. Náležení do radikálu odpovídá tomu, že všechny body, které splňují předpoklady splňují i důsledek neboli dokazují větu. Stačí tedy spočítat normovanou Groebnerovu bázi ideálu $(f_1, \dots, f_9, gt-1)$ a zkontrolovat zda vyjde 1. V našem případě tyto rovnice postačují.
+\end{document}
+
